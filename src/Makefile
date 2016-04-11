@@ -24,8 +24,8 @@ TARGET     = demo
 BOARD      = STM32F4-Discovery
 BSP_BASE   = stm32f4_discovery
 
-#OCDFLAGS   = -f board/stm32f4discovery.cfg -c "stm32f4x.cpu configure -rtos auto;"
-OCDFLAGS   = -f openocd-traxx.cfg -c "stm32f4x.cpu configure -rtos auto;"
+OCDFLAGS   = -f board/stm32f4discovery.cfg -c "stm32f4x.cpu configure -rtos auto;"
+#OCDFLAGS   = -f openocd-traxx.cfg -c "stm32f4x.cpu configure -rtos auto;"
 JLINKFLAGS = -device stm32f417vg -si swd -speed 4000
 GDBFLAGS   =
 
@@ -192,8 +192,8 @@ openocd:
 	$(OCD) -s $(OCD_DIR) $(OCDFLAGS)
 
 flash: all
-	$(JLINK) $(JLINKFLAGS) flash.jlink
-	#$(OCD) -s $(OCD_DIR) $(OCDFLAGS) -c "program $(TARGET).elf verify reset exit"
+	#$(JLINK) $(JLINKFLAGS) flash.jlink
+	$(OCD) -s $(OCD_DIR) $(OCDFLAGS) -c "program $(TARGET).elf verify reset exit"
 
 debug:
 	@if ! nc -z localhost 3333; then \
